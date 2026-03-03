@@ -18,12 +18,12 @@ datasource db {
 // =======================
 
 model User {
-  id       Int    @id @default(autoincrement())
-  publicId String @unique @default(cuid())
-  username String @unique @db.VarChar(20)
-
-  aboutMe    String? @db.VarChar(300)
-  statusText String? @db.VarChar(80)
+  id             Int    @id @default(autoincrement())
+  publicId       String @unique @default(cuid())
+  username       String @unique @db.VarChar(20)
+  profilePicUrl String? @db.VarChar(500)
+  aboutMe       String? @db.VarChar(300)
+  statusText    String? @db.VarChar(80)
 
   gender Gender     @default(SECRET)
   role   UserRole   @default(USER)
