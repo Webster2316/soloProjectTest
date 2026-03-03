@@ -5,11 +5,234 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// =======================
+// Core users + sessions
+// =======================
+
+model User {
+  id       Int    @id @default(autoincrement())
+  publicId String @unique @default(cuid())
+  username String @unique @db.VarChar(20)
+
+  aboutMe    String? @db.VarChar(300)
+  statusText String? @db.VarChar(80)
+
+  gender Gender     @default(SECRET)
+  role   UserRole   @default(USER)
+  status UserStatus @default(ACTIVE)
+
+  birthMonth Int?
+  birthDay   Int?
+
+  tokens                  Int       @default(50)
+  transmissions           Int       @default(0)
+  lastTransmissionGrantAt DateTime?
+
+  createdAt  DateTime  @default(now())
+  lastSeenAt DateTime?
+
+  // sessions
+  sessions DeviceSession[]
+
+  // chatroom + dms
+  chatroomMessages ChatroomMessage[]
+  dmMembers        DmMember[]
+  dmMessages       DmMessage[]
+
+  // safety/moderation relations
+  blocksAsBlocker Block[] @relation("Blocker")
+  blocksAsBlocked Block[] @relation("Blocked")
+
+  reportsMade     Report[] @relation("Reporter")
+  reportsReceived Report[] @relation("ReportedUser")
+  reviewedReports Report[] @relation("ReviewedBy")
+
+  modActionsAsActor  ModerationAction[] @relation("ModActor")
+  modActionsAsTarget ModerationAction[] @relation("ModTarget")
+
+  @@index([status])
+  @@index([role])
+}
+
+model DeviceSession {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  sessionHash String    @unique
+  createdAt   DateTime  @default(now())
+  lastUsedAt  DateTime  @default(now())
+  expiresAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+//
+// One global public chatroom (messages only; no rooms table)
+//
+model ChatroomMessage {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  content   String    @db.VarChar(1000)
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reports Report[]
+}
+
+//
+// DMs (1-to-1 conversations)
+//
+model DirectMessage {
+  id        Int      @id @default(autoincrement())
+  publicId  String   @unique @default(cuid())
+  createdAt DateTime @default(now())
+
+  members  DmMember[]
+  messages DmMessage[]
+}
+
+model DmMember {
+  id              Int      @id @default(autoincrement())
+  directMessageId Int
+  userId          Int
+  joinedAt        DateTime @default(now())
+
+  directMessage DirectMessage @relation(fields: [directMessageId], references: [id], onDelete: Cascade)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([directMessageId, userId])
+}
+
+model DmMessage {
+  id              Int       @id @default(autoincrement())
+  directMessageId Int
+  userId          Int
+  content         String    @db.VarChar(1000)
+  createdAt       DateTime  @default(now())
+  deletedAt       DateTime?
+
+  directMessage DirectMessage @relation(fields: [directMessageId], references: [id], onDelete: Cascade)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  reports Report[]
+}
+
+//
+// Safety
+//
+model Block {
+  id        Int      @id @default(autoincrement())
+  blockerId Int
+  blockedId Int
+  createdAt DateTime @default(now())
+
+  blocker User @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked User @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+  @@index([blockedId])
+}
+
+model Report {
+  id             Int @id @default(autoincrement())
+  reporterId     Int
+  reportedUserId Int
+
+  // report target (either chatroom message OR dm message OR just user)
+  chatroomMessageId Int?
+  dmMessageId       Int?
+
+  reason  ReportReason
+  details String?
+  status  ReportStatus @default(OPEN)
+
+  createdAt    DateTime  @default(now())
+  reviewedAt   DateTime?
+  reviewedById Int?
+
+  reporter     User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUser User @relation("ReportedUser", fields: [reportedUserId], references: [id], onDelete: Cascade)
+
+  chatroomMessage ChatroomMessage? @relation(fields: [chatroomMessageId], references: [id], onDelete: SetNull)
+  dmMessage       DmMessage?       @relation(fields: [dmMessageId], references: [id], onDelete: SetNull)
+
+  reviewedBy User? @relation("ReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  // prevent duplicate spam reports on same target by same reporter
+  @@unique([reporterId, chatroomMessageId])
+  @@unique([reporterId, dmMessageId])
+  @@index([status, createdAt])
+  @@index([reportedUserId, createdAt])
+}
+
+model ModerationAction {
+  id           Int       @id @default(autoincrement())
+  actorId      Int
+  targetUserId Int
+  action       ModAction
+  reason       String?
+  createdAt    DateTime  @default(now())
+
+  reportId Int?
+  actor    User @relation("ModActor", fields: [actorId], references: [id], onDelete: Restrict)
+  target   User @relation("ModTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+
+  @@index([targetUserId, createdAt])
+  @@index([action, createdAt])
+}
+
+// =======================
+// ENUMS
+// =======================
+enum UserStatus {
+  ACTIVE
+  RESTRICTED
+  SUSPENDED
+  BANNED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NB
+  SECRET
+}
+
+enum UserRole {
+  USER
+  MOD
+  ADMIN
+}
+
+enum ReportReason {
+  HARASSMENT
+  SEXUAL_CONTENT
+  GROOMING
+  SPAM
+  HATE
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum ModAction {
+  WARN
+  RESTRICT
+  SUSPEND
+  BAN
+  UNBAN
+  DELETE_MESSAGE
 }
