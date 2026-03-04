@@ -41,6 +41,7 @@ model User {
 
   // sessions
   sessions DeviceSession[]
+  transferCodes TransferCode[]
 
   // chatroom + dms
   chatroomMessages ChatroomMessage[]
@@ -73,9 +74,22 @@ model DeviceSession {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-//
+model TransferCode {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  codeHash    String   @unique
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime
+  usedAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+//==============================================================
 // One global public chatroom (messages only; no rooms table)
-//
+//==============================================================
 model ChatroomMessage {
   id        Int       @id @default(autoincrement())
   userId    Int
