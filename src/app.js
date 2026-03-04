@@ -1,35 +1,19 @@
-
 require('dotenv').config();
 const express = require('express');
-const createError = require('http-errors');
-const path = require('path');
+const cookieParser = require('cookie-parser');
 
-//TODO: const somethingRoute = require('./routers/Something.router');
+const authMiddleware = require('./middleware/auth.middleware.js');
 
+const userRoutes = require('../routes/userRoutes.js');
+const authRoutes = require('../routes/authRoutes.js');
 
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(authMiddleware);
 
-// Static files (frontend)
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Health check
-app.get('/health', (req, res) => res.status(200).send('OK'));
-
-// TODO: app.use('/api/messages', somethingRoute);
-
-app.use((req, res, next) => {
-  next(createError(404, `Unknown resource ${req.method} ${req.originalUrl}`));
-});
-
-// eslint-disable-next-line no-unused-vars
-app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(error.status || 500).json({
-    error: error.message || 'Unknown Server Error!',
-  });
-});
+app.use('/api', authRoutes);
+app.use('/api/users', userRoutes);
 
 module.exports = app;
