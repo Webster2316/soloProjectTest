@@ -16,15 +16,16 @@ async function checkSession() {
       return;
     }
 
-    const data = await res.json();
-    const user = data.user;
+  const data = await res.json();
+const user = data.user;
 
-    // store user globally if you want
-    window.currentUser = user;
+// find the element
+const usernameDisplay = document.getElementById("usernameDisplay");
 
-    // optional: display username somewhere
-    const nameEl = document.getElementById("usernameDisplay");
-    if (nameEl) nameEl.textContent = user.username;
+// update the text
+if (usernameDisplay) {
+  usernameDisplay.textContent = user.username;
+}
 
   } catch (err) {
     console.error("Error checking session:", err);

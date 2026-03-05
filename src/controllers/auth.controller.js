@@ -52,11 +52,15 @@ module.exports.createUser = async (req, res) => {
     });
 
     // 5) Set cookie (so next visit identifies this user)
-    res.cookie('sid', rawToken, {
-      httpOnly: true,
-      secure: false, // set true when deployed on HTTPS
-      sameSite: 'lax',
-    });
+const THREE_YEARS = 1000 * 60 * 60 * 24 * 1100;
+
+res.cookie("sid", rawToken, {
+  httpOnly: true,
+  secure: false,        // true when HTTPS
+  sameSite: "lax",
+  maxAge: THREE_YEARS,
+  path: "/",
+});
 
     // 6) Return created user
     return res.status(201).json({ user });
