@@ -4,8 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/createUser.css">
 </head>
 <body>
-    
+      <canvas id="stars"></canvas>
+
+<main class="pixel-card">
+  <header class="pixel-header">
+    <div class="pixel-badge">DEVICE PROFILE</div>
+    <h1 class="pixel-title">CREATE USER</h1>
+    <p class="pixel-sub">Set your identity, traveller.</p>
+  </header>
+
+  <form id="createUserForm" class="pixel-form">
+    <label class="pixel-label">
+      Username <span class="pixel-hint">(required)</span>
+      <input id="username" class="pixel-input" type="text" maxlength="20" placeholder="starcoder" required />
+    </label>
+
+    <div class="pixel-grid2">
+      <label class="pixel-label">
+        Gender <span class="pixel-hint">(optional)</span>
+        <select id="gender" class="pixel-input">
+          <option value="">Prefer not to say</option>
+          <option value="SECRET">Secret</option>
+          <option value="FEMALE">Female</option>
+          <option value="MALE">Male</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </label>
+
+      <label class="pixel-label">
+        Birthday <span class="pixel-hint">(MM-DD)</span>
+        <input id="birthday" class="pixel-input" type="text" inputmode="numeric" placeholder="03-21" maxlength="5" />
+      </label>
+    </div>
+
+    <section class="zodiac">
+      <div class="zodiac-left">
+        <div class="zodiac-label">Zodiac</div>
+        <div id="zodiacName" class="zodiac-name">—</div>
+        <div id="zodiacRange" class="zodiac-range">Enter birthday</div>
+      </div>
+
+      <div class="zodiac-right">
+        <div class="zodiac-frame">
+          <img id="zodiacIcon" alt="Zodiac icon" />
+        </div>
+      </div>
+    </section>
+
+    <button id="submitBtn" class="pixel-btn" type="submit">CREATE</button>
+    <div id="status" class="pixel-status" aria-live="polite"></div>
+  </form>
+</main>
+<script src="js/stars.js"></script>
+      <script src="js/createUser.js"></script>
 </body>
 </html>
