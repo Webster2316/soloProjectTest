@@ -1,8 +1,11 @@
 
-    // 1) Your story lines (add more!)
+    // 1)lines
 const lines = [
   "Welcome, traveller!",
-  "Congratulations!\n You are have been chosen to embark on this once in a lifetime excavation."
+  "Congratulations!\n You have been elected to be apart of the Earth's new space exploration program.",
+  "As the Earth's atmosphere is rapidly deteriorating,\n you and a few other selected individuals have been tasked with this once in a lifetime opportunity to explore the galaxy and find a new home for humanity. ",
+  "\n And of course, you'll sail through sectors no space equipment has ever discovered before so you may encounter new planets and even new life forms!",
+  "But fret not, as you venture through the majestic, starlit ocean of infinite space, you'll have your crewmates along the way to lean on throughout your journey. Still do proceed with cation, you'll never know what you might encounter out there. ",
 ];
 
 const textEl = document.getElementById("text");
@@ -11,7 +14,7 @@ const nextBtn = document.getElementById("nextBtn");
 const beep = document.getElementById("beep");
 
 // 2) Typing settings
-const typingSpeedMs = 50;     // smaller = faster
+const typingSpeedMs = 70;     // smaller = faster
 const beepEveryNChars = 2;    // beep every 2 characters
 
 // 3) State (game brain)
