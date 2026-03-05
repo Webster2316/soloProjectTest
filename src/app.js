@@ -2,10 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
-const authMiddleware = require('./middleware/auth.middleware.js');
-
-const userRoutes = require('../routes/userRoutes.js');
-const authRoutes = require('../routes/authRoutes.js');
+const { authMiddleware } = require('./middleware/auth.middleware.js');
+const userRoutes = require('./routes/userRoutes.js');
+const authRoutes = require('./routes/authRoutes.js');
 
 const app = express();
 
