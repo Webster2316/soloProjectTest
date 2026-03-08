@@ -172,8 +172,8 @@ body{
 }
 
 #zodiacIcon{
-  width: 90px;
-  height: 90px;
+  width: 105px;
+  height: 105px;
   image-rendering: pixelated; /* makes pixel art crisp */
   display: none; /* shown when we have a sign */
 }

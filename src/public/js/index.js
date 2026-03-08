@@ -45,8 +45,8 @@ document.addEventListener("click", () => {
   bgm.play().catch(e => console.log("Playback blocked:", e));
 
   let fade = setInterval(() => {
-    if (bgm.volume < 0.6) {
-      bgm.volume += 0.01;
+    if (bgm.volume < 0.5) {
+      bgm.volume += 0.0001;
     } else {
       clearInterval(fade);
     }

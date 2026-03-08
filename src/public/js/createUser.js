@@ -128,18 +128,18 @@ const zodiacIconEl = document.getElementById("zodiacIcon");
 const ZODIAC_ICON_BASE = "../assets/zodiac";
 
 const ZODIAC = [
-  { name: "Capricorn", start: [12, 22], end: [1, 19], file: "capricorn.png", range: "Dec 22 – Jan 19" },
-  { name: "Aquarius",  start: [1, 20],  end: [2, 18], file: "aquarius.png",  range: "Jan 20 – Feb 18" },
-  { name: "Pisces",    start: [2, 19],  end: [3, 20], file: "pisces.png",    range: "Feb 19 – Mar 20" },
-  { name: "Aries",     start: [3, 21],  end: [4, 19], file: "aries.png",     range: "Mar 21 – Apr 19" },
-  { name: "Taurus",    start: [4, 20],  end: [5, 20], file: "taurus.png",    range: "Apr 20 – May 20" },
-  { name: "Gemini",    start: [5, 21],  end: [6, 20], file: "gemini.png",    range: "May 21 – Jun 20" },
-  { name: "Cancer",    start: [6, 21],  end: [7, 22], file: "cancer.png",    range: "Jun 21 – Jul 22" },
-  { name: "Leo",       start: [7, 23],  end: [8, 22], file: "leo.png",       range: "Jul 23 – Aug 22" },
-  { name: "Virgo",     start: [8, 23],  end: [9, 22], file: "virgo.png",     range: "Aug 23 – Sep 22" },
-  { name: "Libra",     start: [9, 23],  end: [10, 22],file: "libra.png",     range: "Sep 23 – Oct 22" },
-  { name: "Scorpio",   start: [10, 23], end: [11, 21],file: "scorpio.png",   range: "Oct 23 – Nov 21" },
-  { name: "Sagittarius",start:[11, 22], end: [12, 21],file: "sagittarius.png",range:"Nov 22 – Dec 21" },
+  { name: "Capricorn", start: [12, 22], end: [1, 19], file: "assets/zodiac/capricorn.png", range: "Dec 22 – Jan 19" },
+  { name: "Aquarius",  start: [1, 20],  end: [2, 18], file: "assets/zodiac/aquarius.png",  range: "Jan 20 – Feb 18" },
+  { name: "Pisces",    start: [2, 19],  end: [3, 20], file: "assets/zodiac/pisces.png",    range: "Feb 19 – Mar 20" },
+  { name: "Aries",     start: [3, 21],  end: [4, 19], file: "assets/zodiac/aries.png",     range: "Mar 21 – Apr 19" },
+  { name: "Taurus",    start: [4, 20],  end: [5, 20], file: "assets/zodiac/taurus.png",    range: "Apr 20 – May 20" },
+  { name: "Gemini",    start: [5, 21],  end: [6, 20], file: "assets/zodiac/gemini.png",    range: "May 21 – Jun 20" },
+  { name: "Cancer",    start: [6, 21],  end: [7, 22], file: "assets/zodiac/cancer.png",    range: "Jun 21 – Jul 22" },
+  { name: "Leo",       start: [7, 23],  end: [8, 22], file: "assets/zodiac/leo.png",       range: "Jul 23 – Aug 22" },
+  { name: "Virgo",     start: [8, 23],  end: [9, 22], file: "assets/zodiac/virgo.png",     range: "Aug 23 – Sep 22" },
+  { name: "Libra",     start: [9, 23],  end: [10, 22],file: "assets/zodiac/libra.png",     range: "Sep 23 – Oct 22" },
+  { name: "Scorpio",   start: [10, 23], end: [11, 21],file: "assets/zodiac/scorpio.png",   range: "Oct 23 – Nov 21" },
+  { name: "Sagittarius",start:[11, 22], end: [12, 21],file: "assets/zodiac/sagittarius.png",range:"Nov 22 – Dec 21" },
 ];
 
 function isValidDay(month, day) {
@@ -229,8 +229,8 @@ document.addEventListener("click", () => {
   bgm.play().catch(e => console.log("Playback blocked:", e));
 
   let fade = setInterval(() => {
-    if (bgm.volume < 0.6) {
-      bgm.volume += 0.01;
+    if (bgm.volume < 0.5) {
+      bgm.volume += 0.0001;
     } else {
       clearInterval(fade);
     }
