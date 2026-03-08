@@ -1,0 +1,179 @@
+/*main body*/
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#stars{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #060814; /* space color */
+  z-index: -1; /* stays behind everything */
+}
+
+body{
+  font-family: 'Press Start 2P';
+  background: #0b0f1a;
+  color: white;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+/* form styling */
+.pixel-card{
+  width: min(760px, 92vw);
+  padding: 26px 24px;
+  border-radius: 18px;
+  border: 2px solid rgba(255,255,255,0.16);
+  background: rgba(10, 14, 28, 0.70);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 90px rgba(0,0,0,0.55);
+}
+
+.pixel-header{
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 2px dashed rgba(255,255,255,0.16);
+}
+
+.pixel-badge{
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  font-size: 9px;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.pixel-title{
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.pixel-sub{
+  margin: 0;
+  font-size: 10px;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+.pixel-form{
+  display: grid;
+  gap: 16px;
+}
+
+.pixel-grid2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 560px){
+  .pixel-grid2{ grid-template-columns: 1fr; }
+}
+
+.pixel-label{
+  display: grid;
+  gap: 8px;
+  font-size: 10px;
+}
+
+.pixel-hint{
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+.pixel-input{
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P';
+  font-size: 10px;
+  color: #a0a0a0;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  outline: none;
+}
+
+.pixel-input:focus{
+  border-color: rgba(255,255,255,0.34);
+  background: rgba(255,255,255,0.09);
+}
+
+.pixel-btn{
+  font-family: 'Press Start 2P';
+  font-size: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.12);
+  color: white;
+  cursor: pointer;
+}
+
+.pixel-btn:hover{ background: rgba(255,255,255,0.18); }
+.pixel-btn:disabled{ opacity: 0.55; cursor: not-allowed; }
+
+.pixel-status{
+  min-height: 18px;
+  font-size: 10px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+.pixel-status.ok{ color: #b6ffcc; }
+.pixel-status.err{ color: #ffb6b6; }
+
+/* Zodiac preview */
+.zodiac{
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+.zodiac-label{
+  font-size: 9px;
+  opacity: 0.65;
+  margin-bottom: 6px;
+}
+
+.zodiac-name{
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.zodiac-range{
+  margin-top: 6px;
+  font-size: 9px;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.zodiac-frame{
+  width: 110px;
+  height: 110px;
+  border-radius: 14px;
+  border: 2px dashed rgba(255,255,255,0.18);
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+#zodiacIcon{
+  width: 105px;
+  height: 105px;
+  image-rendering: pixelated; /* makes pixel art crisp */
+  display: none; /* shown when we have a sign */
+}

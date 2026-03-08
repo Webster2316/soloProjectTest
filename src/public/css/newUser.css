@@ -1,0 +1,66 @@
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#stars{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #060814; /* space color */
+  z-index: -1; /* stays behind everything */
+}
+
+body{
+  font-family: 'Press Start 2P';
+  background: #0b0f1a;
+  color: white;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.scene{
+  width: min(900px, 92vw);
+}
+
+a {
+  font-family: 'Press Start 2P';
+  font-size: 12px;
+  color: white;
+  text-decoration: none;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+
+.text{
+  min-height: 120px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.controls{
+    font-family: 'Press Start 2P';
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+button{
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+}

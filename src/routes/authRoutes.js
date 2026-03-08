@@ -17,4 +17,3 @@ router.post('/generate', transferController.generateTransferCode);
 router.post('/redeem', transferController.redeemTransferCode);
 
 module.exports = router;
-module.exports = router;
