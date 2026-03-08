@@ -33,3 +33,23 @@ if (usernameDisplay) {
 }
 
 checkSession();
+
+// background music
+const bgm = document.getElementById("bgm");
+document.addEventListener("click", () => {
+
+  bgm.muted = false;
+  bgm.loop = true;     // keep looping
+  bgm.volume = 0;
+
+  bgm.play().catch(e => console.log("Playback blocked:", e));
+
+  let fade = setInterval(() => {
+    if (bgm.volume < 0.6) {
+      bgm.volume += 0.01;
+    } else {
+      clearInterval(fade);
+    }
+  }, 100);
+
+}, { once: true });

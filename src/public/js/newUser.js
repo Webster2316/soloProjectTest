@@ -13,7 +13,7 @@ const textEl = document.getElementById("text");
 const skipBtn = document.getElementById("skipBtn");
 const nextBtn = document.getElementById("nextBtn");
 const beep = document.getElementById("beep");
-
+const continueLink = document.getElementById("continueLink");
 // 2) Typing settings
 const typingSpeedMs = 70;     // smaller = faster
 const beepEveryNChars = 2;    // beep every 2 characters
@@ -89,10 +89,12 @@ function nextLine() {
 
   lineIndex++;
 
-  // If story ends, lock buttons (or loop if you want)
+  // If story ends, lock buttons 
   if (lineIndex >= lines.length) {
     skipBtn.disabled = true;
     nextBtn.disabled = true;
+
+      continueLink.style.display = "inline"; 
     return;
   }
 

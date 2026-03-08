@@ -217,3 +217,23 @@ birthdayInput.addEventListener("input", (e) => {
 
 // optional: init on load (if browser autofills)
 updateZodiacUI(birthdayInput.value || "");
+
+// background music
+const bgm = document.getElementById("bgm");
+document.addEventListener("click", () => {
+
+  bgm.muted = false;
+  bgm.loop = true;   
+  bgm.volume = 0;
+
+  bgm.play().catch(e => console.log("Playback blocked:", e));
+
+  let fade = setInterval(() => {
+    if (bgm.volume < 0.6) {
+      bgm.volume += 0.01;
+    } else {
+      clearInterval(fade);
+    }
+  }, 100);
+
+}, { once: true });
