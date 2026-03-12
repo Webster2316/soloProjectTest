@@ -1,23 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello World</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <canvas id="stars"></canvas>
+    <div class="home-screen">
+      <div class="scene-layer">
+        <!-- space background
+      spaceship windows
+      character
+      pet -->
+      </div>
 
-        <canvas id="stars"></canvas>
-        <h2 id="usernameDisplay"></h2>
+      <div class="ui-layer">
+        <div class="top-bar">
+          <div class="top-box usernameBox">
+            <span class="usernameDisplay"></span>
+          </div>
+          <div class="top-box tokensBox">
+            <span class="tokens">🪙 0</span>
+          </div>
+          <div class="top-box transmissionsBox">
+            <span class="transmissions">📡 0</span>
+          </div>
+          <div class="top-box timeBox">
+            <span class="time">00:00</span>
+          </div>
+          <div class="top-box settingsBox">⚙</div>
+        </div>
+        <div class="floating-btns">
+          <button class="floating-btn chatroom">
+            <div class="outer-ring"></div>
 
-         
-<audio id="bgm" src="assets/audio/Bgm.mp3" autoplay loop muted></audio>
-        <script src="js/stars.js"></script>
-      <script src="js/index.js"></script>
-</body>
+            <svg class="orbit-ring" viewBox="0 0 200 200">
+              <defs>
+                <path
+                  id="circlePath"
+                  d="M100,100 m-90,0 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0"
+                />
+              </defs>
+              <text font-size="8" fill="#9bdcff" font-family="Press Start 2P">
+                <textPath href="#circlePath" startOffset="0%">
+                  DeepSpace Lounge
+                </textPath>
+              </text>
+            </svg>
+
+            <div class="chatroom-core">
+              <div class="chat-icon"></div>
+            </div>
+          </button>
+          <div class="orbit orbit-dm">
+            <button class="floating-btn dm">✉</button>
+          </div>
+
+          <div class="orbit orbit-avatar">
+            <button class="floating-btn avatar">✎</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <audio id="bgm" src="assets/audio/Bgm.mp3" autoplay loop muted></audio>
+    <script src="js/stars.js"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>
