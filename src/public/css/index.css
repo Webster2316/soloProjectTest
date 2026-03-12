@@ -66,6 +66,11 @@ body{
   min-width: 200px;
   text-align: center;
 }
+.usernameBox {
+  cursor: pointer;
+  font-size: 12px;
+  width: 30px;
+}
 
 .settingsBox {
   cursor: pointer;
