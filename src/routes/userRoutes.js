@@ -8,5 +8,7 @@ router.get('/me', userController.getUser);
 router.patch('/me', userController.updateUser);
 router.delete('/me', userController.deleteUser);
 
+router.post('/grantDaily', userController.grantDailyTransmissions);
+
 
 module.exports = router;
