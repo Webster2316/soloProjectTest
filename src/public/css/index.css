@@ -2,6 +2,8 @@
 html, body {
   margin: 0;
   height: 100%;
+   overflow:hidden;
+    font-family: "Press Start 2P", cursive;
 }
 
 #stars{
@@ -21,4 +23,237 @@ body{
   height: 100vh;
   display: grid;
   place-items: center;
+}
+
+.home-screen{
+    position: relative;
+    width:100vw;
+    height:100vh;
+    z-index:1;
+}
+.scene-layer{
+    position:absolute;
+    inset:0;
+}
+.ui-layer{
+    position:absolute;
+    inset:0;
+    z-index:2;
+}
+
+
+.top-bar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 12px; /* space between boxes */
+  padding: 0; /* boxes have their own padding */
+}
+
+.top-box {
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.3);
+  font-size: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  text-align: center;
+}
+
+.settingsBox {
+  cursor: pointer;
+  font-size: 25px;
+  width: 30px;
+}
+
+
+
+.floating-btns{
+    position:absolute;
+    inset:0;
+}
+
+.floating-btn{
+   position:absolute;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+    border:none;
+
+    background:rgba(255,255,255,0.1);
+    backdrop-filter: blur(6px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+}
+
+.chatroom{
+    width:160px;
+    height:160px;
+
+    position:absolute;
+
+    top:50%;
+    left:65%;
+
+    transform:translate(-50%,-50%);
+}
+.chatroom-core{
+    width:110px;
+    height:110px;
+
+    background:rgba(0,0,0,0.6);
+
+    border-radius:50%;
+    border:3px solid white;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-size:9px;
+    font-family: "Press Start 2P", cursive;
+
+    position:relative;
+    z-index:2;
+}
+
+.dm{
+         width:70px;
+    height:70px;
+    position:absolute;
+
+    top:0;
+    left:90%;
+
+
+
+    transform:translateX(-50%);
+}
+
+.avatar{
+      width:100px;
+    height:100px;
+    position:absolute;
+
+    bottom:0;
+    left:75%;
+
+    background:rgba(255,255,255,0.15);
+
+    border:2px solid rgba(150,220,255,0.7);
+
+    box-shadow:
+        0 0 8px rgba(150,220,255,0.5),
+        inset 0 0 6px rgba(150,220,255,0.4);
+
+
+    transform:translateX(-50%);
+}
+.chatroom:hover{
+    transform:scale(1.1);
+}
+.orbit{
+    position:absolute;
+
+    top:50%;
+    left:65%;
+
+    width:230px;
+    height:230px;
+
+    transform:translate(-50%,-50%);
+}
+
+.orbit-ring{
+    position:absolute;
+
+    width:200px;
+    height:200px;
+
+    border-radius:50%;
+    border:2px solid rgba(150,220,255,0.7);
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    animation: spin 14s linear infinite;
+}
+.orbit-text{
+    position:absolute;
+
+    top:-8px;
+
+    font-size:8px;
+    font-family: "Press Start 2P", cursive;
+    letter-spacing:2px;
+
+    color:#9bdcff;
+
+    text-shadow:
+        0 0 6px rgba(120,200,255,0.9),
+        0 0 14px rgba(120,200,255,0.6);
+}
+.outer-ring{
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+    border:3px solid rgba(120,200,255,0.4);
+
+    box-shadow:
+        0 0 12px rgba(120,200,255,0.6),
+        inset 0 0 8px rgba(120,200,255,0.4);
+}
+
+.orbit-dm{
+    animation: orbitSpin 40s linear infinite;
+}
+
+.orbit-avatar{
+    animation: orbitSpinReverse 55s linear infinite;
+}
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+@keyframes orbitSpin{
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+}
+
+@keyframes orbitSpinReverse{
+    from{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+    to{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
 }
