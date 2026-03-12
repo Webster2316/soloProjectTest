@@ -1,7 +1,17 @@
 const userModel = require('../models/userModel');
 const sessionModel = require('../models/sessionModel');
 const { hash } = require('../utils/hash');
+const { grantDailyTransmissions } = require('../utils/transmissions');
+//============================
+// DAILY TRANSMISSIONS (POST /grantDaily)
+//============================
+module.exports.grantDailyTransmissions = async (req, res) => {
+  if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
 
+  const newCount = await grantDailyTransmissions(req.user);
+
+  res.json({ transmissions: newCount });
+};
 //============================
 //GET USER (GET /me)
 //============================
@@ -16,14 +26,15 @@ module.exports.getUser = async (req, res) => {
 module.exports.updateUser = async (req, res) => {
   if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
 
-  const { aboutMe, statusText, gender, birthMonth, birthDay } = req.body;
+  const { aboutMe, statusText, gender, birthMonth, birthDay, lastSeenAt } = req.body;
 
   const updated = await userModel.updateUserById(req.user.id, {
     aboutMe,
     statusText,
     gender,
     birthMonth,
-    birthDay
+    birthDay,
+    lastSeenAt // add this here
   });
 
   res.json({ user: updated });

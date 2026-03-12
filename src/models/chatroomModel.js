@@ -1,6 +1,28 @@
 const chatroomModel = require('../models/chatroomModel');
 const userModel = require('../models/userModel');
 
+
+//##############################################################
+// Chatroom Model
+// ##############################################################
+
+module.exports.getRecentMessages = async () => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7); // 7 days ago
+
+  return prisma.chatroomMessage.findMany({
+    where: { createdAt: { gte: sevenDaysAgo } }, // only messages in last 7 days
+    orderBy: { createdAt: "asc" }, // oldest first
+    include: { user: { select: { username: true, profilePicUrl: true } } } // include basic user info
+  });
+};
+
+module.exports.createMessage = (userId, content) => {
+  return prisma.chatroomMessage.create({
+    data: { userId, content },
+    include: { user: { select: { username: true, profilePicUrl: true } } }
+  });
+};
 // ============================
 // GET MESSAGES (GET /api/chatroom)
 // ============================
