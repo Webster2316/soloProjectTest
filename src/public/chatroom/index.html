@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSpace Lounge</title>
+
+<link rel="stylesheet" href="index.css"/>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="chat-wrapper">
+
+  <div id="messages" class="messages">
+
+    <!-- Example message (other user) -->
+    <div class="message">
+
+    <!-- //  <img class="avatar" src="AZURE_PFP_URL"> -->
+
+      <div class="message-content">
+        <div class="usernameDisplay"></div>
+
+        <div class="bubble"></div>
+      </div>
+
+    </div>
+
+
+    <!-- Example message (you) -->
+    <div class="message me">
+
+     <!-- // <img class="avatar" src="AZURE_PFP_URL"> -->
+
+      <div class="message-content">
+        <div class="usernameDisplay"></div>
+
+        <div class="bubble"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Reply bar -->
+  <div class="reply-bar">
+    <input id="messageInput" placeholder="Type your message..." />
+    <button id="sendBtn">➤</button>
+  </div>
+
+</div>
+
+<audio id="bgm" src="../assets/audio/chatroomBgm.mp3" preload="auto"></audio>
+
+<script src="../js/stars.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>

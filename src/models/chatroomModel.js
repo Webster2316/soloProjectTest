@@ -1,4 +1,5 @@
-const chatroomModel = require('../models/chatroomModel');
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 const userModel = require('../models/userModel');
 
 

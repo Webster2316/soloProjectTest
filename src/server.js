@@ -21,12 +21,26 @@ wss.on('connection', async (ws, req) => {
   clients.set(ws, user);
 
   ws.send(JSON.stringify({ type: 'welcome', message: `Hi ${user.username}!` }));
+const todayStart = new Date();
+todayStart.setHours(0, 0, 0, 0);
 
-  // daily +300 transmissions
-  await userModel.updateUserById(user.id, { 
-    transmissions: user.transmissions + 300,
+if (
+  !user.lastTransmissionGrantAt ||
+  new Date(user.lastTransmissionGrantAt) < todayStart
+) {
+  user.transmissions += 300;
+
+  await userModel.updateUserById(user.id, {
+    transmissions: user.transmissions,
     lastTransmissionGrantAt: new Date()
   });
+
+  ws.send(JSON.stringify({
+    type: "dailyBonus",
+    amount: 300
+  }));
+}
+
 
   const recentMessages = await chatroomModel.getRecentMessages();
   ws.send(JSON.stringify({ type: 'recentMessages', messages: recentMessages }));
@@ -56,7 +70,13 @@ wss.on('connection', async (ws, req) => {
       }
 
       const payload = JSON.stringify({ type: 'message', message });
-      clients.forEach((clientWs) => clientWs.send(payload));
+
+     clients.forEach((user, clientWs) => {
+  if (clientWs.readyState === WebSocket.OPEN) {
+    clientWs.send(payload);
+  }
+});
+
     }
   });
 

@@ -2,31 +2,56 @@ const sessionModel = require('../models/sessionModel');
 const { hash } = require('../utils/hash');
 const THREE_YEARS = 1000 * 60 * 60 * 24 * 1100;
 
-module.exports.authMiddleware = async (req, res, next) => {
-  try {
-    const sid = req.cookies?.sid;
-    if (!sid) return next();
+async function getUserFromCookie(req) {
+  const cookieHeader = req.headers.cookie;
+  if (!cookieHeader) return null;
 
-    const sessionHash = hash(sid);
-    const session = await sessionModel.findByHashWithUser(sessionHash);
+  const cookies = Object.fromEntries(
+    cookieHeader.split("; ").map(c => {
+      const [key, value] = c.split("=");
+      return [key, value];
+    })
+  );
 
-    if (!session) return next();
+  const sid = cookies.sid;
+  if (!sid) return null;
 
-    req.user = session.user;
+  const sessionHash = hash(sid);
+  const session = await sessionModel.findByHashWithUser(sessionHash);
 
-    await sessionModel.touchLastUsed(session.id);
+  if (!session) return null;
 
-    // refresh cookie expiry
-    res.cookie("sid", sid, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      maxAge: THREE_YEARS
-    });
+  return session.user;
+}
 
-    return next();
-  } catch (error) {
-    console.error("Error authMiddleware:", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
+module.exports = {
+  authMiddleware: async (req, res, next) => {
+    try {
+      const sid = req.cookies?.sid;
+      if (!sid) return next();
+
+      const sessionHash = hash(sid);
+      const session = await sessionModel.findByHashWithUser(sessionHash);
+
+      if (!session) return next();
+
+      req.user = session.user;
+
+      await sessionModel.touchLastUsed(session.id);
+
+      res.cookie("sid", sid, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+        maxAge: THREE_YEARS
+      });
+
+      return next();
+    } catch (error) {
+      console.error("Error authMiddleware:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  getUserFromCookie
 };
