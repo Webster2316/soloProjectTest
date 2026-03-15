@@ -4,9 +4,9 @@ body{
   font-family: 'Inter', sans-serif;
 
   background:
-    radial-gradient(circle at 20% 20%, #1e1b3a, transparent 40%),
-    radial-gradient(circle at 80% 60%, #16235a, transparent 40%),
-    linear-gradient(180deg,#0b0820,#090f2c);
+  radial-gradient(circle at 40% 40%, #25043e, transparent 80%),
+  radial-gradient(circle at 60% 60%, #04114a, transparent 80%),
+  linear-gradient(180deg,#170a5b,#3c1061);
 }
 #stars{
   position: fixed;
@@ -14,7 +14,6 @@ body{
   width: 100vw;
   height: 100vh;
   display: block;
-  background: #060814; /* space color */
   z-index: -1; /* stays behind everything */
 }
 
@@ -76,7 +75,7 @@ body{
   bottom:25px;
   left:50%;
   transform:translateX(-50%);
-
+color: #e5e5e5;
   width:700px;
 
   display:flex;
@@ -93,7 +92,7 @@ body{
   flex:1;
   border:none;
   outline:none;
-
+color: #e5e5e5;
   background:transparent;
   font-size:16px;
 }
