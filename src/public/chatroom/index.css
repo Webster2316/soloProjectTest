@@ -6,7 +6,7 @@ body{
   background:
   radial-gradient(circle at 40% 40%, #25043e, transparent 80%),
   radial-gradient(circle at 60% 60%, #04114a, transparent 80%),
-  linear-gradient(180deg,#170a5b,#3c1061);
+  linear-gradient(180deg,#100545,#2d074b);
 }
 #stars{
   position: fixed;

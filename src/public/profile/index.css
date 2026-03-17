@@ -1,0 +1,150 @@
+html {
+  margin: 0;
+  height: 100%;
+   overflow:hidden;
+    font-family: "Press Start 2P", cursive;
+    color: #ffffff;
+}
+body {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  min-height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle at top, #0b0f1a, #111827);
+}
+#stars{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #060814; /* space color */
+  z-index: -1; /* stays behind everything */
+}
+
+
+
+/* ====== Profile Card ====== */
+.profile-card {
+  backdrop-filter: blur(10px);
+  background: rgba(10, 15, 30, 0.6); /* glass effect */
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  max-width: 900px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ====== Header ====== */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pfp {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #7dd3fc;
+  box-shadow: 0 0 15px #7dd3fc55;
+  object-fit: cover;
+}
+
+.user-info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.stat {
+  padding: 0.3rem 0.7rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  text-align: center;
+  min-width: 40px;
+  box-shadow: 0 0 10px #7dd3fc55;
+}
+
+/* ====== Profile Body ====== */
+.profile-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.profile-body input,
+.profile-body textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(20, 25, 45, 0.6);
+  color: #f0f0f0;
+  font-family: 'Press Start 2P', cursive;
+  resize: none;
+  box-shadow: 0 0 10px #7dd3fc22;
+}
+
+.profile-body input:focus,
+.profile-body textarea:focus {
+  outline: none;
+  border: 1px solid #7dd3fc;
+  box-shadow: 0 0 15px #7dd3fc55;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 0 10px #7dd3fc33;
+}
+
+/* ====== Save Button ====== */
+.edit-btn {
+  align-self: center;
+  padding: 0.8rem 2rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 0.7rem;
+  background: #0ff;
+  color: #0b0f1a;
+  cursor: pointer;
+  box-shadow: 0 0 15px #0f0f55;
+  transition: 0.3s;
+}
+
+.edit-btn:hover {
+  background: #7dd3fc;
+  box-shadow: 0 0 20px #7dd3fc88;
+}
+
+/* ====== Responsive tweak ====== */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
