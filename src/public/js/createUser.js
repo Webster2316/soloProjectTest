@@ -124,8 +124,8 @@ const zodiacNameEl = document.getElementById("zodiacName");
 const zodiacRangeEl = document.getElementById("zodiacRange");
 const zodiacIconEl = document.getElementById("zodiacIcon");
 
-// put your icons in: /assets/zodiac/aries.png etc
-const ZODIAC_ICON_BASE = "../assets/zodiac";
+//url for image
+const ZODIAC_ICON_BASE = "../";
 
 const ZODIAC = [
   { name: "Capricorn", start: [12, 22], end: [1, 19], file: "assets/zodiac/capricorn.png", range: "Dec 22 – Jan 19" },

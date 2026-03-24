@@ -40,6 +40,7 @@ module.exports.createUser = async (req, res) => {
       birthDay,    // optional
       transmissions: 300,
       tokens: 50,
+      lastTransmissionGrantAt: new Date()
     });
 
     // 4) Create session token + store hashed token

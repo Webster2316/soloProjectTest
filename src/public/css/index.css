@@ -262,3 +262,33 @@ body{
         transform:translate(-50%,-50%) rotate(0deg);
     }
 }
+
+/* dropup menu */
+.btn-group.dropup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  --bs-btn-bg: #1a1a2e;       /* dark space-y button */
+  --bs-btn-color: #9bdcff;    /* soft glowy text */
+  --bs-btn-border-color: #9bdcff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(155, 220, 255, 0.6); /* glow effect */
+}
+
+.btn-group.dropup .dropdown-menu {
+  background-color: #161646; /* darker space panel */
+  border: 1px solid #9bdcff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(155, 220, 255, 0.5);
+}
+
+.btn-group.dropup .dropdown-item {
+  color: #0e5a84;
+   font-size: 12px;
+}
+
+.btn-group.dropup .dropdown-item:hover {
+  background-color: rgba(71, 100, 116, 0.2);
+  color: #ffffff;
+}

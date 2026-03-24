@@ -26,6 +26,7 @@ model User {
   statusText    String? @db.VarChar(80)
 
   gender Gender     @default(SECRET)
+  pronouns String? @db.VarChar(20)
   role   UserRole   @default(USER)
   status UserStatus @default(ACTIVE)
 
@@ -217,7 +218,7 @@ enum UserStatus {
 enum Gender {
   MALE
   FEMALE
-  NB
+  OTHERS
   SECRET
 }
 
