@@ -16,39 +16,49 @@
     <canvas id="stars"></canvas>
     <div class="profile-card">
 
+<div class="username-wrapper">
+  <h2 class="usernameDisplay"></h2>
+  <span class="edit-icon">✎</span>
+</div>
+
+<div class="status-wrapper">
+  <span class="status-text"></span>
+  <input class="status-input hidden" placeholder="Set a status..." maxlength="80" />
+</div>
+
   <div class="profile-header">
     <img class="pfp" src="..." />
     
     <div class="user-info">
       <div class="stats">
-        <div class="tokens">🪙11</div>
-        <div class="transmissions">📡11</div>
+        <div class="tokens"></div>
+        <div class="transmissions"></div>
       </div>
     </div>
+
   </div>
 
   <div class="profile-body">
 
-    <input placeholder="Name" />
+    <div class="pronouns-tag"></div>
+<input class="pronouns-input hidden" placeholder="+ add pronouns" />
     <textarea placeholder="Bio"></textarea>
-
     <div class="row">
-      <div class="field">♊ Gemini</div>
-      <div class="field">🎂 12 Jun</div>
+      <div class="gender"></div>
     </div>
-
     <div class="row">
-      <div class="field">⚧ Female</div>
-    </div>
+  <div class="zodiac-bday"></div>
+</div>
 
 
   </div>
 
   <button class="edit-btn">Save Changes</button>
-
+<div id="popup" class="popup hidden">Saved successfully ✨</div>
 </div>
  <audio id="bgm" src="../assets/audio/Bgm.mp3" autoplay loop muted></audio>
     <script src="../js/stars.js"></script>
+    
     <script src="index.js"></script>
 
 </body>

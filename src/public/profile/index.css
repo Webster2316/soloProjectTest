@@ -77,6 +77,41 @@ body {
 }
 
 /* ====== Profile Body ====== */
+
+.username-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.usernameDisplay {
+  border-bottom: 1px solid rgba(125, 211, 252, 0.4);
+  padding-bottom: 0.2rem;
+}
+
+.username-edit {
+  /* font-family: 'PixelFont', monospace; */
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  color: white;
+  outline: none;
+  text-align: center;
+}
+
+.edit-icon {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.edit-icon:hover {
+  opacity: 1;
+  color: #194458;
+}
 .profile-body {
   display: grid;
   gap: 1rem;
@@ -115,7 +150,75 @@ body {
   text-align: center;
   box-shadow: 0 0 10px #7dd3fc33;
 }
+.pronouns-tag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.15);
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  color: #327ea1;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
+.pronouns-tag:hover {
+  background: rgba(125, 211, 252, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+.pronouns-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #2d81a8;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.status-wrapper {
+  margin-top: 6px;
+  text-align: center;
+}
+
+.status-text {
+  font-size: 0.7rem;
+  color: #aaa;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  transition: 0.2s;
+}
+
+.status-edit {
+  /* font-family: 'PixelFont', monospace; */
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  color: white;
+  outline: none;
+  text-align: center;
+}
+.status-text:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.status-input {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.7rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  color: white;
+  text-align: center;
+  outline: none;
+}
 /* ====== Save Button ====== */
 .edit-btn {
   align-self: center;
@@ -147,4 +250,63 @@ body {
   .row {
     grid-template-columns: 1fr;
   }
+}
+
+.zodiac-bday {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 10px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.zodiac-icon {
+  width: 30px;
+  height: 30px;
+}
+.zodiac-bday {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 10px;
+  border-radius: 10px;
+  width: fit-content;
+}
+.bday {
+  opacity: 100%;
+}
+
+.zodiac-name {
+  color: #ffd700; 
+}
+.starsign {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.gender-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(20, 25, 45, 0.9);
+  border: 1px solid #7dd3fc;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 15px #7dd3fc55;
+  color: #7dd3fc;
+  font-size: 0.7rem;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
