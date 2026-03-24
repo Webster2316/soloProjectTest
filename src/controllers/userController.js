@@ -23,18 +23,19 @@ module.exports.getUser = async (req, res) => {
 //============================
 //UPDATE USER (PATCH /me)
 //============================
+
 module.exports.updateUser = async (req, res) => {
   if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
 
-  const { aboutMe, statusText, gender, birthMonth, birthDay, lastSeenAt } = req.body;
+  const { aboutMe, username, pronouns, statusText, gender, lastSeenAt } = req.body;
 
   const updated = await userModel.updateUserById(req.user.id, {
     aboutMe,
+    username,
+    pronouns,
     statusText,
     gender,
-    birthMonth,
-    birthDay,
-    lastSeenAt // add this here
+    lastSeenAt 
   });
 
   res.json({ user: updated });
