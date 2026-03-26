@@ -24,6 +24,22 @@ body{
   display: grid;
   place-items: center;
 }
+.character img{
+     position: absolute;
+  bottom: 50px;
+    left: 10%;
+  height: 555px;
+  animation: drift 10s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-15px); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(15px); }
+  100% { transform: translateY(0); }
+    
+}
 
 .home-screen{
     position: relative;
@@ -172,6 +188,13 @@ body{
 .chatroom:hover{
     transform:scale(1.1);
 }
+.orbit button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
 .orbit{
     position:absolute;
 
@@ -183,7 +206,13 @@ body{
 
     transform:translate(-50%,-50%);
 }
+.dm {
+  transform: rotate(0deg) translate(115px) rotate(0deg);
+}
 
+.avatar {
+  transform: rotate(180deg) translate(115px) rotate(0deg);
+}
 .orbit-ring{
     position:absolute;
 
@@ -228,12 +257,12 @@ body{
         inset 0 0 8px rgba(120,200,255,0.4);
 }
 
-.orbit-dm{
-    animation: orbitSpin 40s linear infinite;
+.orbit-dm {
+  animation: orbitSpin 40s linear infinite;
 }
 
-.orbit-avatar{
-    animation: orbitSpinReverse 55s linear infinite;
+.orbit-avatar {
+  animation: orbitSpinReverse 55s linear infinite;
 }
 @keyframes spin{
     from{
