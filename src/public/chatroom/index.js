@@ -17,14 +17,14 @@ async function checkSession() {
 
   try {
 
-    const res = await fetch("/api/session", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/session", {
       method: "GET",
       credentials: "include"
     });
     
 
     if (res.status === 401) {
-      window.location.replace("/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
       return;
     }
 
@@ -66,9 +66,7 @@ function addMessage(msg) {
 // =======================
 // WEBSOCKET
 // =======================
-
-const ws = new WebSocket("ws://localhost:3000");
-
+const ws = new WebSocket("wss://soloprojecttest.onrender.com");
 ws.onmessage = (event) => {
 
   const data = JSON.parse(event.data);

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require("path");
+const cors = require('cors');
 
 const { authMiddleware } = require('./middleware/auth.middleware.js');
 const userRoutes = require('./routes/userRoutes.js');
@@ -10,6 +11,10 @@ const chatroomRoutes = require('./routes/chatroomRoutes');
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+  origin: "https://solo-project-test.vercel.app/",
+  credentials: true
+}));
 app.get('/', (req, res) => {
   res.status(200).send('OK');
 });
