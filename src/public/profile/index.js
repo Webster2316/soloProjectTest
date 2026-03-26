@@ -49,12 +49,12 @@ function getZodiac(month, day) {
 // =======================
 async function fetchUserInfo() {
   try {
-    const res = await fetch("/api/users/me", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
       credentials: "include"
     });
 
     if (res.status === 401) {
-      window.location.replace("/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
       return;
     }
 
@@ -207,7 +207,7 @@ async function updateUserInfo() {
 
     if (status === "+ set status") status = "";
 
-    const res = await fetch("/api/users/me", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
       method: "PATCH",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
