@@ -10,11 +10,11 @@ const authRoutes = require('./routes/authRoutes.js');
 const chatroomRoutes = require('./routes/chatroomRoutes');
 
 const app = express();
-app.use(express.json());
 app.use(cors({
   origin: "https://solo-project-test.vercel.app/",
   credentials: true
 }));
+app.use(express.json());
 app.get('/', (req, res) => {
   res.status(200).send('OK');
 });
