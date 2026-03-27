@@ -23,6 +23,9 @@
       spaceship windows
       character
       pet -->
+        <div class="character">
+          <img src="assets/sprites/testAvatar.png" alt="Character" />
+        </div>
       </div>
 
       <div class="ui-layer">
@@ -39,32 +42,26 @@
           <div class="top-box timeBox">
             <span class="time">00:00</span>
           </div>
-          <div class="top-box settingsBox">⚙</div>
         </div>
+        
         <div class="floating-btns">
        
-          <a class="floating-btn chatroom" href="chatroom/index.html">
+        <a href="chatroom/index.html" class="floating-btn chatroom">
+  <div class="outer-ring"></div>
+  <svg class="orbit-ring" viewBox="0 0 200 200">
+    <defs>
+      <path id="circlePath" d="M100,100 m-90,0 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0" />
+    </defs>
+    <text font-size="8" fill="#9bdcff" font-family="Press Start 2P">
+      <textPath href="#circlePath" startOffset="0%">DeepSpace Lounge</textPath>
+    </text>
+  </svg>
+  <div class="chatroom-core">
+    <div class="chat-icon"></div>
+  </div>
+</a>
+        </div>
 
-            <div class="outer-ring"></div>
-
-            <svg class="orbit-ring" viewBox="0 0 200 200">
-              <defs>
-                <path
-                  id="circlePath"
-                  d="M100,100 m-90,0 a90,90 0 1,1 180,0 a90,90 0 1,1 -180,0"
-                />
-              </defs>
-              <text font-size="8" fill="#9bdcff" font-family="Press Start 2P">
-                <textPath href="#circlePath" startOffset="0%">
-                  DeepSpace Lounge
-                </textPath>
-              </text>
-            </svg>
-
-            <div class="chatroom-core">
-              <div class="chat-icon"></div>
-            </div>
-          </a>
           <div class="orbit orbit-dm">
             <button class="floating-btn dm">✉</button>
           </div>

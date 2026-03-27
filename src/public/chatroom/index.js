@@ -24,7 +24,7 @@ async function checkSession() {
     
 
     if (res.status === 401) {
-      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/newUser.html");
       return;
     }
 
@@ -42,17 +42,26 @@ console.log("Current user:", data);
 // ADD MESSAGE TO UI
 // =======================
 function addMessage(msg) {
-
   const el = document.createElement("div");
 
   const isMe = currentUser && msg.userId === currentUser.id;
   el.className = isMe ? "message me" : "message";
 
   const username = msg.user?.username || "User";
-  const avatar = msg.user?.profilePicUrl || "/assets/defaultPfp.png";
+
+  // 💡 decide avatar
+  let avatarUrl;
+
+  if (msg.user?.messagesSentCount < 3) {
+    avatarUrl = "../assets/icons/lockedPfp.png";
+  } else if (msg.user?.profilePic) {
+    avatarUrl = msg.user.profilePic;
+  } else {
+    avatarUrl = "../assets/icons/unlockedPfp.png";
+  }
 
   el.innerHTML = `
-    <img class="avatar" src="${avatar}">
+    <img class="avatar" src="${avatarUrl}">
 
     <div class="message-content">
       <div class="username">${username}</div>

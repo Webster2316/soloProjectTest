@@ -54,7 +54,7 @@ async function fetchUserInfo() {
     });
 
     if (res.status === 401) {
-      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/newUser.html");
       return;
     }
 
@@ -62,12 +62,14 @@ async function fetchUserInfo() {
     currentUser = data.user;
 
     renderUser(currentUser);
+    console.log("Fetched user info:", currentUser);
 
   } catch (err) {
     console.error("Fetch error:", err);
   }
 }
 
+console.log(currentUser);
 // =======================
 // RENDER USER
 // =======================
@@ -81,6 +83,7 @@ function renderUser(user) {
   renderStatus(user);
   renderGender(user);
   renderZodiac(user);
+  renderPfp(user);
 }
 
 // =======================
@@ -90,8 +93,8 @@ function bindUI() {
   bindUsernameEdit();
   bindPronounsEdit();
   bindStatusEdit();
-
-  qs(".edit-btn")?.addEventListener("click", updateUserInfo);
+  bindPfpUpload();
+  qs(".edit-btn")?.addEventListener("click", updateUserInfo , uploadPfp);
 }
 
 // =======================
@@ -151,7 +154,7 @@ function renderPronouns(user) {
 }
 
 // =======================
-// STATUS (FIXED PROPERLY 😏)
+// STATUS
 // =======================
 function bindStatusEdit() {
   const text = qs(".status-text");
@@ -305,3 +308,107 @@ document.addEventListener("click", () => {
   bgm.loop = true;
   bgm.play().catch(() => {});
 }, { once: true });
+
+
+
+
+
+// =======================
+// BIND PFP UPLOAD
+// =======================
+function bindPfpUpload() {
+  const wrapper = qs(".pfp-wrapper");
+  const input = qs("#pfpInput");
+
+  if (!wrapper || !input) return;
+
+  // click → open file picker (with unlock check)
+  wrapper.addEventListener("click", () => {
+    if (!currentUser) return;
+
+    if ((currentUser.messagesSentCount ?? 0) < 3) {
+      alert("Dear Ranger, please send 3 transmission signals first^^");
+      return;
+    }
+
+    input.click();
+  });
+
+  // file selected
+  input.addEventListener("change", async () => {
+    if (!input.files || !input.files[0]) return;
+    await uploadPfp(input.files[0]);
+  });
+
+  // drag & drop
+  wrapper.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  wrapper.addEventListener("drop", async (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) await uploadPfp(file);
+  });
+}
+
+// =======================
+// UPLOAD PFP
+// =======================
+async function uploadPfp(file) {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload-pfp", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error("Upload failed:", data.error);
+      alert(data.error || "Upload failed");
+      return;
+    }
+
+    // update UI immediately (no waiting needed)
+    if (data.imageUrl) {
+      const img = qs(".pfp");
+      if (img) img.src = data.imageUrl;
+    }
+
+    showPopup();
+    fetchUserInfo(); // refresh full user state
+
+  } catch (err) {
+    console.error("Upload error:", err);
+  }
+}
+// =======================
+// RENDER PFP
+// =======================
+function renderPfp(user) {
+  const img = qs(".pfp");
+  const overlay = qs(".pfp-overlay");
+
+  if (!img) return;
+
+  const locked = (user.messagesSentCount ?? 0) < 3;
+
+  if (locked) {
+    img.src = "../assets/icons/lockedPfp.png";
+   
+    return;
+  }
+
+  // unlocked state
+  if (user.profilePicUrl) {
+    img.src = user.profilePicUrl;
+    if (overlay) overlay.textContent = "";
+  } else {
+    img.src = "../assets/icons/unlockedPfp.png";
+  }
+}

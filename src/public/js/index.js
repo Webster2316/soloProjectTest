@@ -6,7 +6,7 @@ async function checkSession() {
     });
 
     if (res.status === 401) {
-      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/newUser.html");
       return;
     }
 

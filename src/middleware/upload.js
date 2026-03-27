@@ -1,72 +1,56 @@
+
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const express = require("express");
 const multer = require("multer");
-const path = require("path");
-const { BlobServiceClient } = require("@azure/storage-blob");
+const { createClient } = require("@supabase/supabase-js");
 
-const upload = multer({ storage: multer.memoryStorage() });
-const containerName = process.env.AZURE_STORAGE_CONTAINER || "uploads";
+const router = express.Router();
+const upload = multer();
 
-let blobServiceClient = null;
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
-function getBlobServiceClient() {
-  if (blobServiceClient) return blobServiceClient;
-
-  const conn =
-    process.env.CUSTOMCONNSTR_AZURE_STORAGE_CONNECTION_STRING ||
-    process.env.AZURE_STORAGE_CONNECTION_STRING;
-
-  if (!conn) return null;
-
-  blobServiceClient = BlobServiceClient.fromConnectionString(conn);
-  return blobServiceClient;
-}
-
-
-async function ensureContainer() {
-  const client = getBlobServiceClient();
-  if (!client) return null;
-
-  const containerClient = client.getContainerClient(containerName);
-  await containerClient.createIfNotExists();
-  return containerClient;
-}
-
-function safeName(original) {
-  const base = path.basename(original).replace(/[^\w.\-]/g, "_");
-  return `${Date.now()}_${base}`;
-}
-
-async function uploadToBlob(req, res, next) {
+router.post("/upload-pfp", upload.single("file"), async (req, res) => {
   try {
-    if (!req.file) return next();
-
-    const containerClient = await ensureContainer();
-
-    if (!containerClient) {
-      // In tests, skip uploads so CI doesn't die.
-      if (process.env.NODE_ENV === "test") return next();
-
-      // In real environments, fail loudly so you notice misconfig.
-      return res.status(500).json({ error: "Azure Blob Storage not configured" });
+    const user = req.user; 
+    // unlock condition
+    if (user.messagesSentCount < 3) {
+      return res.status(403).json({ error: "Send 3 messages first" });
     }
 
-    const blobName = safeName(req.file.originalname);
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+    const file = req.file;
+    const filePath = `pfp/${user.id}-${Date.now()}`;
 
-    await blockBlobClient.uploadData(req.file.buffer, {
-      blobHTTPHeaders: { blobContentType: req.file.mimetype },
+    // upload to supabase
+    const { error } = await supabase.storage
+      .from("chat-images")
+      .upload(filePath, file.buffer, {
+        contentType: file.mimetype,
+      });
+
+    if (error) throw error;
+
+    // get public URL
+    const { data } = supabase.storage
+      .from("chat-images")
+      .getPublicUrl(filePath);
+
+    const imageUrl = data.publicUrl;
+
+    // save to DB (Prisma)
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { profilePicUrl: imageUrl },
     });
 
-    req.uploadedBlob = {
-      name: blobName,
-      url: blockBlobClient.url,
-      contentType: req.file.mimetype,
-      size: req.file.size,
-    };
-
-    next();
+    res.json({ imageUrl });
   } catch (err) {
-    next(err);
+    console.error(err);
+    res.status(500).json({ error: "Upload failed" });
   }
-}
+});
 
-module.exports = { upload, uploadToBlob };
+module.exports = router;
