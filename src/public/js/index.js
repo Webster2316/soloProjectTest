@@ -6,7 +6,7 @@ async function checkSession() {
     });
 
     if (res.status === 401) {
-      window.location.replace("/createUser.html");
+      window.location.replace("/newUser.html");
       return;
     }
 

@@ -7,6 +7,7 @@ const { authMiddleware } = require('./middleware/auth.middleware.js');
 const userRoutes = require('./routes/userRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const chatroomRoutes = require('./routes/chatroomRoutes');
+const uploadRoutes = require('./middleware/upload');
 
 const app = express();
 app.use(express.json());
@@ -23,5 +24,6 @@ app.use(authMiddleware);
 app.use('/api', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/chatroom', chatroomRoutes);
+app.use('/api', uploadRoutes);
 
 module.exports = app;

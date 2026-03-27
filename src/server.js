@@ -66,7 +66,7 @@ if (
       });
 
       if (messagesSentCount === 3) {
-        ws.send(JSON.stringify({ type: 'unlockPfp', message: 'You can now upload a profile picture! 💖' }));
+        ws.send(JSON.stringify({ type: 'unlockPfp', message: 'You can now upload a profile picture!^^' }));
       }
 
       const payload = JSON.stringify({ type: 'message', message });
