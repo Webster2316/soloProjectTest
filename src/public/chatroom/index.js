@@ -66,7 +66,16 @@ function addMessage(msg) {
 // =======================
 // WEBSOCKET
 // =======================
-const ws = new WebSocket("wss://soloprojecttest.onrender.com");
+let ws;
+
+async function initApp() {
+  await checkSession();
+  await fetchUserInfo();
+
+  ws = new WebSocket("wss://soloprojecttest.onrender.com");
+}
+
+initApp();
 ws.onmessage = (event) => {
 
   const data = JSON.parse(event.data);
