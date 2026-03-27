@@ -1,12 +1,12 @@
 async function checkSession() {
   try {
-    const res = await fetch("/api/session", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/session", {
       method: "GET",
       credentials: "include"
     });
 
     if (res.status === 401) {
-      window.location.replace("/newUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/newUser.html");
       return;
     }
 
@@ -27,7 +27,7 @@ async function checkSession() {
     // first update of lastSeenAt
     updateLastSeen();
     // after getting user from /api/session
-const resGrant = await fetch("/api/users/grantDaily", { method: "POST", credentials: "include" });
+const resGrant = await fetch("https://soloprojecttest.onrender.com/api/users/grantDaily", { method: "POST", credentials: "include" });
 const dataGrant = await resGrant.json();
 console.log("Daily transmissions:", dataGrant.transmissions);
 
@@ -42,13 +42,13 @@ console.log("Daily transmissions:", dataGrant.transmissions);
 checkSession();
 async function fetchUserInfo() {
   try {
-    const res = await fetch("/api/users/me", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
       method: "GET",
       credentials: "include"
     });
 
     if (res.status === 401) {
-      window.location.replace("/createUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/createUser.html");
       return;
     }
 
@@ -98,7 +98,7 @@ setInterval(updateTime, 1000);
 // function to update lastSeenAt
 async function updateLastSeen() {
   try {
-    const res = await fetch("/api/users/me", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
       method: "PATCH",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

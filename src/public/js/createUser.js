@@ -37,7 +37,7 @@ async function api(path, options = {}) {
 (async function boot() {
   setStatus("");
 
-  const { ok, status, data } = await api("/api/session", { method: "GET" });
+  const { ok, status, data } = await api("https://soloprojecttest.onrender.com/api/session", { method: "GET" });
 
   if (ok && data?.user) {
     // session exists → leave create page
@@ -102,7 +102,7 @@ if (birthDay != null) body.birthDay = birthDay;
   try {
     setStatus("Creating user...", "");
 
-    const res = await api("/api/users", {
+    const res = await api("https://soloprojecttest.onrender.com/api/users", {
       method: "POST",
       body: JSON.stringify(body),
     });

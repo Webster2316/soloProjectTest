@@ -49,12 +49,12 @@ function getZodiac(month, day) {
 // =======================
 async function fetchUserInfo() {
   try {
-    const res = await fetch("/api/users/me", {
+    const res = await fetch("https://soloprojecttest.onrender.com/api/users/me", {
       credentials: "include"
     });
 
     if (res.status === 401) {
-      window.location.replace("/newUser.html");
+      window.location.replace("https://solo-project-test.vercel.app/newUser.html");
       return;
     }
 

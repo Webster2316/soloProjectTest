@@ -56,9 +56,9 @@ module.exports.createUser = async (req, res) => {
 const THREE_YEARS = 1000 * 60 * 60 * 24 * 1100;
 
 res.cookie("sid", rawToken, {
-  httpOnly: true,
-  secure: false,        // true when HTTPS
-  sameSite: "lax",
+httpOnly: true,
+  secure: true,
+  sameSite: "none",
   maxAge: THREE_YEARS,
   path: "/",
 });
