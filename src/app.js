@@ -11,7 +11,7 @@ const chatroomRoutes = require('./routes/chatroomRoutes');
 
 const app = express();
 app.use(cors({
-  origin: "https://solo-project-test.vercel.app/",
+  origin: "https://solo-project-test.vercel.app",
   credentials: true
 }));
 app.use(express.json());
