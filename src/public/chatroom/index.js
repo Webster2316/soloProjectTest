@@ -34,7 +34,7 @@ console.log("Current user:", data);
 
   } catch (err) {
     console.error("Session check error:", err);
-  }
+  
 
 }
 
@@ -76,29 +76,23 @@ function addMessage(msg) {
 // WEBSOCKET
 // =======================
 let ws;
-
 async function initApp() {
   await checkSession();
-  await fetchUserInfo();
 
   ws = new WebSocket("wss://soloprojecttest.onrender.com");
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.type === "recentMessages") {
+      data.messages.forEach(addMessage);
+    }
+
+    if (data.type === "message") {
+      addMessage(data.message);
+    }
+  };
 }
-
-initApp();
-ws.onmessage = (event) => {
-
-  const data = JSON.parse(event.data);
-
-  if (data.type === "recentMessages") {
-    data.messages.forEach(addMessage);
-  }
-
-  if (data.type === "message") {
-    addMessage(data.message);
-  }
-
-};
-
 
 // =======================
 // SEND MESSAGE
@@ -165,5 +159,5 @@ document.addEventListener("click", async () => {
 // =======================
 // START PAGE
 // =======================
-
+initApp();
 checkSession();
