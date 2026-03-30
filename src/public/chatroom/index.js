@@ -34,7 +34,7 @@ console.log("Current user:", data);
 
   } catch (err) {
     console.error("Session check error:", err);
-  
+  }
 
 }
 
